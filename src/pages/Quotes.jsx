@@ -9,8 +9,8 @@ import { API_URL } from "../../data/api";
 
 // GET DATA
 const fetchData = async () => {
-  const response = await axios.get(API_URL);
-  return response.data;
+  const { data } = await axios.get(API_URL);
+  return data;
 };
 
 // I have 10 items and it limit the items to 5
@@ -149,7 +149,7 @@ export default function Quotes() {
           key={quote.id}
           className="bg-slate-900 drop-shadow-lg flex flex-col items-start justify-center text-xl text-white py-10 px-8 mt-1 rounded-md mx-auto w-full"
         >
-          <Link to={quote.id}>
+          <Link to={quote.id.toString()}>
             <h1 className="text-2xl mb-2"> {quote.motto} </h1>
             <p className="text-right"> Author: {quote.author}</p>
           </Link>
