@@ -1,19 +1,24 @@
 {
   "quotes": [
     {
-      "id": "1",
-      "motto": "Life is short, but its memories are endless.",
-      "author": "Piolo"
+      "motto": "2",
+      "author": "2",
+      "id": 2
     },
     {
-      "id": "2",
-      "motto": "Life is like matcha—bittersweet and full of surprises.",
-      "author": "Yas"
+      "motto": "3",
+      "author": "3",
+      "id": 3
     },
     {
-      "motto": "awsedasw",
-      "author": "asdasd",
-      "id": "JebqbQG"
+      "motto": "4",
+      "author": "4",
+      "id": 4
+    },
+    {
+      "motto": "5",
+      "author": "5",
+      "id": 5
     }
   ]
 }

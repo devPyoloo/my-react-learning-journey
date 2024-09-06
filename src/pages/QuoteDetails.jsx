@@ -1,8 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-
-const API_URL = "http://localhost:8000/quotes";
+import { API_URL } from "../../data/api";
 
 const fetchData = async (quoteId) => {
     const response = await axios.get(`${API_URL}/${quoteId}`)
@@ -18,11 +17,11 @@ export default function QuoteDetails() {
   });
   if(isLoading) return <div>Quote details is loading....</div>
 
-  const { author, q } = quotes;
+  const { author, motto } = quotes;
 
   return (
 <div className="details relative bg-slate-900 text-white text-center">
-    <p> { q }</p>
+    <p> { motto }</p>
     <h1>Author: { author }</h1>
   </div>
   ) 

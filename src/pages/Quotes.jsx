@@ -2,8 +2,10 @@ import { Link } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
+import { API_URL } from "../../data/api";
 
-const API_URL = "http://localhost:8000/quotes";
+// const BASE_API_URL = "http://localhost:8000/quotes/?_limit=5&_page=t";
+// the items per page in json
 
 // GET DATA
 const fetchData = async () => {
@@ -18,12 +20,17 @@ const addData = async (newQuote) => {
   await axios.post(API_URL, newQuote);
 };
 
+//DELETE DATA
+const deleteData = async (quoteId) => {
+  await axios.delete(`${API_URL}/${quoteId}`);
+};
+
 export default function Quotes() {
   // const [page, setPage] = useState(1);
 
   const [motto, setMotto] = useState("");
   const [author, setAuthor] = useState("");
-  const [errorMessage, setErrorMessage] = useState("")
+  const [errorMessage, setErrorMessage] = useState("");
 
   const {
     data: quotes,
@@ -37,7 +44,7 @@ export default function Quotes() {
 
   const queryClient = useQueryClient();
 
-  const { mutate: addDataMutation, error: mutationError } = useMutation({
+  const { mutate: addMutate, error: mutationError } = useMutation({
     mutationFn: addData,
 
     onMutate: async (newQuote) => {
@@ -46,28 +53,63 @@ export default function Quotes() {
       const previousQuoteData = queryClient.getQueryData(["quotes"]); //make a copy or store the current quotes data so you can use this to revert if something goes wrong.
 
       queryClient.setQueryData(["quotes"], (oldQueryData) => {
-        return [ ...oldQueryData, { ...newQuote, id: String(oldQueryData.length + 1) }]
+        return [
+          ...oldQueryData,
+          { ...newQuote, id: String(oldQueryData.length + 1) },
+        ];
       }); // make a optimistic updates meaning, update the local cache data and add the new quote to the existing list of quotes. aslo add id is optionnal
 
-      return { previousQuoteData} //return the current data before it triggers the mutation function (addData) this will be used in onError incase of mutation fails
+      return { previousQuoteData }; //return the current data before it triggers the mutation function (addData) this will be used in onError incase of mutation fails
     },
 
     onError: (error, _newQuote, context) => {
-      queryClient.setQueryData(["quotes"], context.previousQuoteData) // revert the previousQuoteData and context means it allows to access the return value(previousQuoteData) of onMutation.
-      setErrorMessage(error.message || "An error occurred while adding the quote.");
+      queryClient.setQueryData(["quotes"], context.previousQuoteData); // revert the previousQuoteData and context means it allows to access the return value(previousQuoteData) of onMutation.
+      setErrorMessage(
+        error.message || "An error occurred while adding the quote."
+      );
     },
 
     onSuccess: () => {
-      queryClient.invalidateQueries(["quotes"])  // ensures that the cache is refreshed and the data is consistent. It's more about keeping the data up-to-date 
+      queryClient.invalidateQueries(["quotes"]); // ensures that the cache is refreshed and the data is consistent. It's more about keeping the data up-to-date
     },
   });
 
+
+  //handle delete muatution
+  const { mutate: deleteMutate } = useMutation({
+    mutationFn: deleteData,
+    onMutate: async (quoteId) => {
+
+      await queryClient.cancelQueries(["quotes"]);
+
+      const previousQuoteData = queryClient.getQueryData(["quotes"]); 
+      
+      queryClient.setQueryData(["quotes"], (oldQueryData) => oldQueryData.filter((quote) => quote.id !== quoteId)
+      ); 
+
+      return { previousQuoteData }; 
+    },
+
+    onError: (error, _quoteId, context) => {
+      queryClient.setQueryData(["quotes"], context.previousQuoteData); 
+      setErrorMessage(
+        error.message || "An error occurred while deleting the quote."
+      );
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["quotes"]);
+    }
+  });
+
+  const handleDeleteQuote = (id) => {   
+    deleteMutate(id);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const quote = { motto, author };
 
-    addDataMutation(quote);
+    addMutate(quote);
     console.log(quote);
 
     setAuthor("");
@@ -100,15 +142,24 @@ export default function Quotes() {
         </form>
       </section>
 
-      { mutationError && <div> { errorMessage } </div> }
+      {mutationError && <div> {errorMessage} </div>}
 
       {quotes?.map((quote) => (
-        <Link to={quote.id} key={quote.id}>
-          <div className="bg-slate-900 drop-shadow-lg flex flex-col items-start justify-center text-xl text-white py-10 px-8 mt-1 rounded-md mx-auto w-full">
+        <div
+          key={quote.id}
+          className="bg-slate-900 drop-shadow-lg flex flex-col items-start justify-center text-xl text-white py-10 px-8 mt-1 rounded-md mx-auto w-full"
+        >
+          <Link to={quote.id}>
             <h1 className="text-2xl mb-2"> {quote.motto} </h1>
             <p className="text-right"> Author: {quote.author}</p>
-          </div>
-        </Link>
+          </Link>
+          <button
+            className="underline mt-3"
+            onClick={() => handleDeleteQuote(quote.id)}
+          >
+            Remove
+          </button>
+        </div>
       ))}
 
       {/* <div className="flex justify-center items-center gap-10 mt-20">
