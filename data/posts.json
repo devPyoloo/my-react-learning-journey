@@ -1,0 +1,104 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "content": "This is the first post. It contains some interesting content.",
+      "image": "/src/assets/react.svg"
+    },
+    {
+      "id": 2,
+      "content": "Here is the second post. It has even more interesting content!",
+      "image": "/src/assets/react.svg"
+    },
+    {
+      "id": 3,
+      "content": "This is the third post. Check out this amazing insight.",
+      "image": "/src/assets/react.svg"
+    },
+    {
+      "id": 4,
+      "content": "Fourth post here. Things are getting quite exciting now.",
+      "image": "/src/assets/react.svg"
+    },
+    {
+      "id": 5,
+      "content": "Fifth post is the best one yet. You won't believe what's inside.",
+      "image": "/src/assets/react.svg"
+    },
+    {
+      "id": 6,
+      "content": "The sixth post is all about learning and improving skills.",
+      "image": "/src/assets/react.svg"
+    },
+    {
+      "id": 7,
+      "content": "Lucky number seven! This post has a bit of everything.",
+      "image": "/src/assets/react.svg"
+    },
+    {
+      "id": 8,
+      "content": "Eighth post is short but sweet. You won't forget it.",
+      "image": "/src/assets/react.svg"
+    },
+    {
+      "id": 9,
+      "content": "Ninth post is full of wisdom and knowledge.",
+      "image": "/src/assets/react.svg"
+    },
+    {
+      "id": 10,
+      "content": "Tenth post marks a milestone. We made it to double digits!",
+      "image": "/src/assets/react.svg"
+    },
+    {
+      "id": 11,
+      "content": "Eleventh post brings new perspectives and ideas.",
+      "image": "/src/assets/react.svg"
+    },
+    {
+      "id": 12,
+      "content": "Twelfth post is packed with exciting updates and news.",
+      "image": "/src/assets/react.svg"
+    },
+    {
+      "id": 13,
+      "content": "Thirteenth post is a deep dive into a trending topic.",
+      "image": "/src/assets/react.svg"
+    },
+    {
+      "id": 14,
+      "content": "Fourteenth post offers practical advice and tips.",
+      "image": "/src/assets/react.svg"
+    },
+    {
+      "id": 15,
+      "content": "Fifteenth post showcases a great achievement or milestone.",
+      "image": "/src/assets/react.svg"
+    },
+    {
+      "id": 16,
+      "content": "Sixteenth post highlights an interesting case study or success story.",
+      "image": "/src/assets/react.svg"
+    },
+    {
+      "id": 17,
+      "content": "Seventeenth post features an insightful interview or guest post.",
+      "image": "/src/assets/react.svg"
+    },
+    {
+      "id": 18,
+      "content": "Eighteenth post provides a comprehensive guide or tutorial.",
+      "image": "/src/assets/react.svg"
+    },
+    {
+      "id": 19,
+      "content": "Nineteenth post is an engaging narrative or opinion piece.",
+      "image": "/src/assets/react.svg"
+    },
+    {
+      "id": 20,
+      "content": "Twentieth post rounds out this series with a thoughtful reflection.",
+      "image": "/src/assets/react.svg"
+    }
+  ]
+}
