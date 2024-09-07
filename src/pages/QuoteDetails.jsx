@@ -26,6 +26,7 @@ export default function QuoteDetails() {
   const { data: quotes, isLoading, error: fetchError } = useQuery({
     queryKey: ["quotes", quoteId],
     queryFn: () => fetchData(quoteId),
+    staleTime: 30000,
   });
 
   const { mutate: editDataMutate } = useMutation({
